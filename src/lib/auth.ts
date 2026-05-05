@@ -9,7 +9,17 @@ export const auth = betterAuth({
 
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5000",
 
-  secret: process.env.BETTER_AUTH_SECRET || "fallback_dev_secret_32_chars_min!",
+  secret: process.env.BETTER_AUTH_SECRET,
+
+advanced: {
+  defaultCookieAttributes: {
+    secure: true,
+    httpOnly: true,
+    sameSite: "none",
+    path: "/"
+  }
+},
+
 
   emailAndPassword: {
     enabled: true,
