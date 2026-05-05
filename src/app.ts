@@ -32,6 +32,9 @@ app.use(
 // ── Better Auth — MUST come before express.json() ───────────
 app.all("/api/auth/*", toNodeHandler(auth));
 
+app.get('/health',(req, res) => {
+  res.send('Ok')
+})
 // ── Body Parsers ────────────────────────────────────────────
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
