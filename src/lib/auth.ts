@@ -7,11 +7,12 @@ export const auth = betterAuth({
     provider: "postgresql",
   }),
 
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5000",
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:5000/api/auth",
 
   secret: process.env.BETTER_AUTH_SECRET,
 
 advanced: {
+  trustHost: true,
   defaultCookieAttributes: {
     secure: true,
     httpOnly: true,
