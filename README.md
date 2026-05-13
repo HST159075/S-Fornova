@@ -1,195 +1,136 @@
-# FurNova Backend API
+# 🛋️ FurNova — Premium Full-Stack E-Commerce Ecosystem
 
-**Node.js + Express + Better Auth + PostgreSQL + Prisma ORM**
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" />
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Stripe-Payments-635BFF?style=for-the-badge&logo=stripe&logoColor=white" />
+</p>
 
----
-
-## 🧰 Tech Stack
-
-| Tool | Purpose |
-|------|---------|
-| **Node.js** | Runtime (ES Modules) |
-| **Express.js** | HTTP framework |
-| **Better Auth** | Authentication (email + Google OAuth) |
-| **PostgreSQL** | Database |
-| **Prisma ORM** | Type-safe DB queries + migrations |
-| **Stripe** | Payment processing |
-| **Zod** | Input validation |
+**FurNova** is a modern, scalable, and high-performance **full-stack e-commerce platform** designed to deliver a premium online shopping experience. It supports **multi-role management (Admin, Manager, User)**, real-time inventory tracking, advanced analytics, and secure payment integration.
 
 ---
 
-## 🚀 Setup Guide
+# ✨ Key Features
 
-### Prerequisites
+## 🛒 Customer Experience
+- Premium UI/UX with smooth animations using GSAP and Framer Motion
+- Persistent Cart & Wishlist synced with database
+- Advanced product search, category filter, and price filtering
+- Secure checkout using Stripe payment gateway
+- Fully responsive for mobile, tablet, and desktop
+
+## 🔐 Multi-Role Management
+
+### 🛠️ Admin Dashboard
+- Manage users and permissions
+- Monitor revenue and analytics
+- Control inventory and product listings
+- Configure platform settings
+
+### 👔 Manager Dashboard
+- Manage products and categories
+- Handle order processing
+- Update inventory and product information
+
+### 👤 User Dashboard
+- Track order history
+- Manage profile and account settings
+- Maintain wishlist and saved items
+
+---
+
+# 📊 Advanced Analytics
+- Real-time revenue and order tracking
+- Interactive charts using **Recharts**
+- Inventory monitoring with low-stock alerts
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+- **Framework:** Next.js 14 (TypeScript)
+- **Styling:** Tailwind CSS + Lucide Icons
+- **Animations:** GSAP + Framer Motion
+- **State Management:** Zustand
+- **Data Fetching:** Axios + TanStack Query
+
+## Backend
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** PostgreSQL (Neon / Supabase)
+- **ORM:** Prisma ORM
+- **Authentication:** Better-Auth (Email + Social Login)
+- **Validation & Security:** Zod, CORS, Express Validator
+
+---
+
+# 📁 Project Structure
+
+```text
+FurNova/
+│
+├── frontend/             # Next.js Application
+│   ├── src/components/   # Reusable UI components
+│   ├── src/pages/        # Routing and Page Logic
+│   ├── src/store/        # Zustand State Management
+│   └── src/lib/          # Utility functions
+│
+└── backend/              # Express API
+    ├── prisma/           # DB Schema & Migrations
+    ├── src/modules/      # Feature-based route modules
+    └── src/lib/          # Configurations (DB, Auth)
+```
+
+---
+
+# 🚀 Setup & Installation
+
+## Prerequisites
 - Node.js 18+
-- PostgreSQL running locally or on a cloud provider (Supabase, Railway, Neon, etc.)
+- PostgreSQL Database
+- Stripe Account (API Keys)
 
-### Step 1 — Install dependencies
+## 1️⃣ Clone the Repository
 ```bash
+git clone https://github.com/HST159075/FurNova.git
+cd FurNova
+```
+
+## 2️⃣ Backend Setup
+```bash
+cd backend
 npm install
-```
 
-### Step 2 — Configure environment
-```bash
 cp .env.example .env
-```
+# Add DATABASE_URL, STRIPE_SECRET_KEY, BETTER_AUTH_SECRET
 
-Edit `.env` with your actual values:
-
-```env
-DATABASE_URL="postgresql://postgres:password@localhost:5432/furnova_db"
-BETTER_AUTH_SECRET="any_long_random_string_at_least_32_chars"
-BETTER_AUTH_URL="http://localhost:5000"
-CLIENT_URL="http://localhost:3000"
-```
-
-### Step 3 — Run Prisma migrations
-```bash
-# Push schema to database (creates tables)
 npm run db:push
-
-# OR use migrations (recommended for production)
-npm run db:migrate
-```
-
-### Step 4 — Generate Prisma Client
-```bash
-npm run db:generate
-```
-
-### Step 5 — Seed the database
-```bash
-npm run db:seed
-```
-Creates categories, products, and demo accounts.
-
-### Step 6 — Start the server
-```bash
-# Development (hot-reload)
 npm run dev
-
-# Production
-npm start
 ```
 
-**Server:** `http://localhost:5000`
-
----
-
-## 👤 Demo Accounts
-
-| Role    | Email                   | Password     |
-|---------|-------------------------|--------------|
-| Admin   | admin@furnova.com       | admin1234    |
-| Manager | manager@furnova.com     | manager1234  |
-| User    | user@furnova.com        | user1234     |
-
----
-
-## 📁 Project Structure
-
-```
-backend/
-├── prisma/
-│   ├── schema.prisma        # DB schema (PostgreSQL)
-│   └── seed.js              # Database seeder
-├── src/
-│   ├── lib/
-│   │   ├── auth.js          # Better Auth configuration
-│   │   └── prisma.js        # Prisma client singleton
-│   ├── middleware/
-│   │   ├── auth.js          # Session guard + role authorize
-│   │   ├── errorHandler.js  # Global error handler
-│   │   └── validate.js      # express-validator helper
-│   ├── routes/
-│   │   ├── auth.js          # Custom profile/address endpoints
-│   │   ├── products.js      # Product CRUD + filter/search/pagination
-│   │   ├── categories.js    # Category CRUD
-│   │   ├── orders.js        # Order management
-│   │   ├── reviews.js       # Product reviews
-│   │   ├── cart.js          # Shopping cart (DB-persisted)
-│   │   ├── wishlist.js      # Wishlist toggle
-│   │   ├── users.js         # Admin user management
-│   │   └── dashboard.js     # Analytics & stats
-│   └── server.js            # App entry point
-├── .env.example
-└── package.json
-```
-
----
-
-## 🔐 Authentication (Better Auth)
-
-Better Auth automatically handles these routes at `/api/auth/*`:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/sign-up/email` | Register with email/password |
-| POST | `/api/auth/sign-in/email` | Login with email/password |
-| POST | `/api/auth/sign-out` | Sign out |
-| GET | `/api/auth/session` | Get current session |
-| GET | `/api/auth/sign-in/google` | Google OAuth sign-in |
-| POST | `/api/auth/forget-password` | Send password reset email |
-| POST | `/api/auth/reset-password` | Reset password |
-
-**Custom auth routes** at `/api/auth/extra/*`:
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/auth/extra/profile` | Get current user profile |
-| PUT | `/api/auth/extra/profile` | Update name, phone, avatar |
-| PUT | `/api/auth/extra/address` | Update shipping address |
-
----
-
-## 📦 API Endpoints
-
-### Products
-| Method | Endpoint | Access |
-|--------|----------|--------|
-| GET | `/api/products?page=1&limit=12&search=sofa&category=id&minPrice=500&maxPrice=2000&sort=price_asc` | Public |
-| GET | `/api/products/featured` | Public |
-| GET | `/api/products/:id` | Public |
-| POST | `/api/products` | Admin/Manager |
-| PUT | `/api/products/:id` | Admin/Manager |
-| DELETE | `/api/products/:id` | Admin |
-
-### Orders
-| Method | Endpoint | Access |
-|--------|----------|--------|
-| POST | `/api/orders` | Auth |
-| GET | `/api/orders/my` | Auth |
-| GET | `/api/orders/:id` | Auth |
-| GET | `/api/orders` | Admin/Manager |
-| PUT | `/api/orders/:id/status` | Admin/Manager |
-| PUT | `/api/orders/:id/pay` | Admin/Manager |
-
-### Cart
-| Method | Endpoint | Access |
-|--------|----------|--------|
-| GET | `/api/cart` | Auth |
-| POST | `/api/cart/add` | Auth |
-| PUT | `/api/cart/update` | Auth |
-| DELETE | `/api/cart/remove/:productId` | Auth |
-| DELETE | `/api/cart/clear` | Auth |
-
----
-
-## 🛠 Useful Commands
-
+## 3️⃣ Frontend Setup
 ```bash
-npm run db:studio     # Open Prisma Studio (visual DB browser)
-npm run db:migrate    # Create & run migration
-npm run db:push       # Push schema changes without migration history
-npm run db:seed       # Seed database with sample data
+cd ../frontend
+npm install
+
+cp .env.local.example .env.local
+# Add API URL and Stripe public key
+
+npm run dev
 ```
 
 ---
 
-## 🌐 Google OAuth Setup (Optional)
+# 👤 Contact
+- **Developer:** Tasinul Alam
+- **Email:** [hsttasin90@gmail.com](mailto:hsttasin90@gmail.com)
+- **LinkedIn:** [MD Tasinul Alam](https://www.linkedin.com/in/md-tasinul-alam-28158735a/)
+- **Portfolio:** [tasin-portfolio.vercel.app](https://tasin-portfolio.vercel.app)
 
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Create a project → Enable Google+ API
-3. Create OAuth 2.0 credentials
-4. Add `http://localhost:5000/api/auth/callback/google` as authorized redirect URI
-5. Add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to `.env`
+---
+
+# ⭐ Support
+If you like this project, please give it a **star ⭐ on GitHub**.
