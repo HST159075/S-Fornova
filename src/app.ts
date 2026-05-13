@@ -18,14 +18,24 @@ import { dashboardRoutes } from "./modules/dashboard/dashboard.route.js";
 const app = express();
 
 // ── CORS ────────────────────────────────────────────────────
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "https://c-fornuva.vercel.app",
+  "http://localhost:3000"
+].filter(Boolean) as string[];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
   })
 );
 
